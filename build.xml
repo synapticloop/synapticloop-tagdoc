@@ -1,0 +1,49 @@
+<project name="synapticloop-tagdoc" basedir="." default="help">
+	<description>
+		This project builds a simple jar file for the tag library documentation
+		task.
+	</description>
+
+	<property file="build.properties" />
+
+	<import file="../common-build/java-build.xml" />
+	<import file="../common-build/tlddoc-build.xml" />
+
+	<property name="src.xsl.dir" value="${src.dir}/xsl" />
+
+	<fileset dir="${src.xsl.dir}" id="jar.fileset.other">
+		<include name="**/*.xsl"/>
+	</fileset>
+
+	<target name="build-tlddocs" depends="jar" description="Build the tag library descriptor documentation">
+		<mkdir dir="${tlddoc.dir}" />
+		<taskdef name="tagdoc" classname="synapticloop.ant.TagDocTask" classpathref="taskpath" classpath="${dist.dir}/${ant.project.name}.jar"/>
+
+		<tagdoc verbose="false" outputDir="${tlddoc.dir}/tagdoc" cleanup="true" userconfig="src/main/config/fop/fop.conf.xml">
+			<fileset dir="src/test/tld">
+				<include name="**/tagdoc.tld"/>
+			</fileset>
+		</tagdoc>
+
+		<tagdoc verbose="false" outputDir="${tlddoc.dir}/jstl" cleanup="true" userconfig="src/main/config/fop/fop.conf.xml" output="pdf"> 
+			<fileset dir="src/test/tld">
+				<include name="c.tld"/>
+				<include name="fn.tld"/>
+				<include name="fmt.tld"/>
+				<include name="sql.tld"/>
+				<include name="x.tld"/>
+			</fileset>
+		</tagdoc>
+
+		<tagdoc verbose="false" outputDir="${tlddoc.dir}/original" cleanup="true" userconfig="src/main/config/fop/fop.conf.xml" output="pdf"> 
+			<fileset dir="src/test/tld/original">
+				<include name="c.tld"/>
+				<include name="fn.tld"/>
+				<include name="fmt.tld"/>
+				<include name="sql.tld"/>
+				<include name="x.tld"/>
+			</fileset>
+		</tagdoc>
+	</target>
+
+</project>

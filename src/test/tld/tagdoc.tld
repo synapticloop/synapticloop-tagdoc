@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+			version="2.0">
+	<!--
+		@Overview("Overview") some sort of quick description of the file goes 
+		here, however, __one__ and ::only:: __one__ paragraph is allowed in the
+		overview,  as this breaks the flow of the table of contents.  A better 
+		place for more verbose documentation is within the <description /> 
+		element.
+	-->
+
+	<description>
+		@Heading("synapticloop Tag Library Documentation Generator Example TLD file")
+		
+		For anybody who has searched for through pages and pages of .tld files 
+		trying to figure out what tag does what.
+		
+		synapticloop tag library documentation generator eases the burden of using
+		and documenting tag library descriptor files. 
+		
+		Designed to be printed out and held as a handy reference to all of the tag 
+		libraries and their associated functions.
+		
+		This file is an example output of the synapticloop tag library 
+		documentation generator, which includes a simple markdown language 
+		designed to be unobtrusive in the documentation.
+		
+		@Heading("Main Features of the tag library documentation generator")
+		
+		+ Simple to use, unobtrusive markup of tag libraries
+		+ Output of bound variables methos and fields for quick reference
+		+ Simple markdown language for inline formatting of text 
+		+ Annotation based markup
+		+ Ant based task for seamless integration with a build system
+		+ Both individual and overall PDF generation views for tag libraries and
+		  collecitons of tag libraries
+		
+		
+		@Heading("The Markdown Mark-Up") The markdown mark-up allows
+		quick and easy marking up of the document, and allows
+		
+		__underlined__, 
+		==strikethrough==, 
+		::bold::, 
+		//italicised// and
+		~~sans serif~~
+		text to be placed within a nice markup
+		
+		without getting in the way of readability and without the
+		nasty HTML markup - which isn't allowed inside the tag libraries
+		 
+		Of course, you could always create a list of the things markdown
+		can do
+		
+		- __underlined__, 
+		- ==strikethrough==, 
+		- ::bold::, 
+		- //italicised// and
+		- ~~sans serif~~
+		
+		or perhaps you want to know the ordering
+		
+		+ __underlined__, 
+		+ ==strikethrough==, 
+		+ ::bold::, 
+		+ //italicised// and
+		+ ~~sans serif~~
+	
+		Or you could do something like the following
+		
+		__==:://~~underlined, strikethrough, bold, italicised, sans serif~~//::==__
+	
+		__==or any== //well//__ //::formed ~~mark-up~~:: in//-between
+		
+		@Heading("Annotations") There are also special markers within the files
+		called //Annotations// which help with other formatting tasks.  Some
+		examples of annotations are:
+		
+		@Ignore("Ignore this") This will be ignored - used as an example
+		
+		- ~~@AllowableValue("someValue")~~ useful for defining
+		- ~~@Class("java.lang.Class")~~ useful for defining
+		- ~~@Default("someValue")~~ useful for defining
+		- ~~@Example("Example")~~ useful for defining
+		- ~~@Heading("Example")~~ useful for defining section level 
+		headings (in fact the heading '::Annotations::' above was defined with this 
+		annotation)
+		- ~~@Ignore("ignores")~~ useful for defining
+		- ~~@Overview("Overview")~~ useful for defining
+		- ~~@RequiredParent("com.example.RequiredTagParent")~~ useful for defining
+		- ~~@Section("Section Annotation")~~ useful for defining 
+	</description>
+	<display-name>synapticloop tlddoc generator</display-name>
+	<tlib-version>1.2</tlib-version>
+	<short-name>sl</short-name>
+	<uri>http://www.synapticloop.com/</uri>
+	
+	<!--
+		@Section("Utility Tags") Tags for rendering data, creating and modifying
+			scoped variables and for catching exceptions 
+		-->
+	<tag>
+		<description>
+			This is the example tag document library with built in parsing, which allows
+			//emphasised (or italicised)// text, or 
+			::bold:: text, or
+			==strikethrough== text, or even
+			__underlined__ text how about ~~sans-serif~~??
+			
+			You may also want to have a lot of characters as well
+			==:://bold italicised struck-through//::== as long as the
+			markdown elements are in the correct order
+			
+			- unordered list
+			- which
+			- keeps
+			- on
+			- going
+			
+			+ don't 
+			+ forget
+			+ you 
+			+ can also
+			+ have
+			+ an 
+			+ ordered list 
+			
+		</description>
+		<name>example</name>
+		<tag-class>org.apache.taglibs.standard.tag.common.core.CatchTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+				<description>
+					Name of the exported scoped variable for the exception thrown from a 
+					nested action.
+
+					@Class("java.lang.Exception") The type of the scoped variable is the 
+					type of the exception thrown.
+				</description>
+				<name>var</name>
+				<required>false</required>
+				<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>
+			Output the expression 
+			Like ~~&lt;%= ... &gt;~~, but for expressions.
+
+			@Example("Example")
+				&lt;sl:example value="${value}" default="${default}" &gt;
+				&lt;sl:sub-example value="${value}" default="${default}" /&gt;
+				&lt;/sl:example&gt;
+				&lt;sl:example value="${value}" default="${default}" &gt;
+				&lt;sl:sub-example value="${value}" default="${default}" /&gt;
+				&lt;/sl:example&gt;
+				&lt;sl:example value="${value}" default="${default}" &gt;
+				&lt;sl:sub-example value="${value}" default="${default}" /&gt;
+				&lt;/sl:example&gt;
+				&lt;sl:example value="${value}" default="${default}" &gt;
+				&lt;sl:sub-example value="${value}" default="${default}" /&gt;
+				&lt;/sl:example&gt;
+				&lt;sl:example value="${value}" default="${default}" &gt;
+				&lt;sl:sub-example value="${value}" default="${default}" /&gt;
+				&lt;/sl:example&gt;
+				
+		</description> 
+		<name>sub-example</name>
+		<tag-class>org.apache.taglibs.standard.tag.rt.core.OutTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+				<description>
+The expression to be evaluated.
+				</description>
+				<name>value</name>
+				<required>true</required>
+				<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+				<description>
+The default value if the resulting value is null.
+				</description>
+				<name>default</name>
+				<required>false</required>
+				<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+				<description>
+Determines whether characters &lt;,&gt;,&amp;,'," in the resulting string 
+should be converted to their corresponding character entity codes. 
+
+@AllowableValue("true") Output will be xml-escaped
+@AllowableValue("false") Output will __::NOT::__ be xml-escaped
+@Default("false")
+				</description>
+				<name>escapeXml</name>
+				<required>false</required>
+				<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+ 
+
+	 <tag>
+		<description>
+	The basic iteration tag, accepting many different collection types and 
+	supporting subsetting and other functionality
+		</description>
+		<name>forEach</name>
+		<tag-class>org.apache.taglibs.standard.tag.rt.core.ForEachTag</tag-class>
+		<tei-class>org.apache.taglibs.standard.tei.ForEachTEI</tei-class>
+		<body-content>JSP</body-content>
+		<attribute>
+				<description>
+Collection of items to iterate over.
+				</description>
+	<name>items</name>
+	<required>false</required>
+	<rtexprvalue>true</rtexprvalue>
+	<type>java.lang.Object</type>
+		</attribute>
+		<attribute>
+				<description>
+	If items specified:
+	- Iteration begins at the item located at the specified index. First item of the collection has index 0.
+	
+	If items not specified:
+	- Iteration begins with index set at the value specified.
+
+</description>
+	<name>begin</name>
+	<required>false</required>
+	<rtexprvalue>true</rtexprvalue>
+	<type>int</type>
+		</attribute>
+		<attribute>
+				<description>
+	If items specified:
+	- Iteration ends at the item located at the specified index (inclusive).
+	
+	If items not specified:
+	- Iteration ends when index reaches the value specified.
+
+				</description>
+	<name>end</name>
+	<required>false</required>
+	<rtexprvalue>true</rtexprvalue>
+	<type>int</type>
+		</attribute>
+		<attribute>
+				<description>
+Iteration will only process every step items of the collection, starting with the first one.
+				</description>
+	<name>step</name>
+	<required>false</required>
+	<rtexprvalue>true</rtexprvalue>
+	<type>int</type>
+		</attribute>
+		<attribute>
+				<description>
+Name of the exported scoped variable for the
+current item of the iteration. This scoped
+variable has nested visibility. Its type depends
+on the object of the underlying collection.
+				</description>
+	<name>var</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+				<description>
+Name of the exported scoped variable for the
+status of the iteration. Object exported is of type
+javax.servlet.jsp.jstl.core.LoopTagStatus. This scoped variable has nested
+visibility.
+
+@Class("javax.servlet.jsp.jstl.core.LoopTagStatus")
+				</description>
+	<name>varStatus</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
